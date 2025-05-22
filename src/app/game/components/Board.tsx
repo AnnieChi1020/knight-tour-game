@@ -17,10 +17,11 @@ export default function Board({
 
   return (
     <div
-      className="grid"
+      className="grid gap-0.5 p-2"
       style={{
         gridTemplateColumns: `repeat(${size}, 64px)`,
         gridTemplateRows: `repeat(${size}, 64px)`,
+        background: "#176087",
       }}
     >
       {cells.map((_, index) => {
@@ -35,9 +36,14 @@ export default function Board({
         return (
           <div
             key={index}
-            className={`w-16 h-16 border flex items-center justify-center text-4xl cursor-pointer
-              ${isDark ? "bg-gray-700" : "bg-white"}
+            className={`w-16 h-16 flex items-center justify-center text-2xl            
+              ${isVisited ? "cursor-not-allowed" : "cursor-pointer"}
+              ${isKnight ? "text-4xl" : isVisited ? "" : ""}
             `}
+            style={{
+              background: isDark ? "#0A2239" : "#fff",
+              color: isDark ? "#fff" : "#0A2239",
+            }}
             onClick={() => onCellClick?.(row, col)}
           >
             {isKnight ? "♞" : isVisited ? step : ""}

@@ -74,16 +74,26 @@ export default function GamePage() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-gray-100">
-      <h1 className="text-3xl font-bold">Knight&apos;s Tour Game</h1>
-      <label htmlFor="board-size" className="mb-2 font-semibold">
+    <main
+      className="flex min-h-screen flex-col items-center justify-center gap-6 "
+      style={{ background: "#0A2239" }}
+    >
+      <h1 className="text-3xl font-bold" style={{ color: "#fff" }}>
+        Knight&apos;s Tour Game
+      </h1>
+      <label
+        htmlFor="board-size"
+        className="mb-2 font-semibold"
+        style={{ color: "#fff" }}
+      >
         Select Board Size:
       </label>
       <select
         id="board-size"
         value={boardSize}
         onChange={(e) => setBoardSize(Number(e.target.value))}
-        className="mb-4 rounded border border-gray-300 px-3 py-1"
+        className="mb-4 rounded border px-3 py-1"
+        style={{ background: "#0A2239", color: "#fff", borderColor: "#176087" }}
       >
         <option value={6}>6 x 6</option>
         <option value={7}>7 x 7</option>
@@ -97,7 +107,8 @@ export default function GamePage() {
       />
       <button
         onClick={resetGame}
-        className="mt-4 rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+        className="mt-4 rounded px-4 py-2 text-white font-semibold"
+        style={{ background: "#176087" }}
       >
         Reset Game
       </button>
