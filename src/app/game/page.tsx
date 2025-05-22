@@ -5,6 +5,9 @@ import Board from "./components/Board";
 
 export default function GamePage() {
   const [knightPosition, setKnightPosition] = useState({ row: 0, col: 0 });
+  const [visited, setVisited] = useState<Record<string, number>>(() => ({
+    "0-0": 1,
+  }));
 
   const isValidKnightMove = (
     from: { row: number; col: number },
@@ -17,8 +20,14 @@ export default function GamePage() {
 
   const handleCellClick = (row: number, col: number) => {
     const to = { row, col };
+    const key = `${row}-${col}`;
 
-    if (isValidKnightMove(knightPosition, to)) {
+    if (isValidKnightMove(knightPosition, to) && !(key in visited)) {
+      setVisited((prev) => ({
+        ...prev,
+        [key]: Object.keys(prev).length + 1,
+      }));
+
       setKnightPosition(to);
     }
   };
@@ -30,6 +39,7 @@ export default function GamePage() {
         size={6}
         knightPosition={knightPosition}
         onCellClick={handleCellClick}
+        visited={visited}
       />
     </main>
   );
