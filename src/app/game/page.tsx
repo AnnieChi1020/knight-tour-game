@@ -24,20 +24,17 @@ export default function GamePage() {
     const key = `${row}-${col}`;
 
     if (isValidKnightMove(knightPosition, to) && !(key in visited)) {
-      setVisited((prev) => {
-        const newVisited = {
-          ...prev,
-          [key]: Object.keys(prev).length + 1,
-        };
+      const newVisited = {
+        ...visited,
+        [key]: Object.keys(visited).length + 1,
+      };
 
-        if (isGameOver(to, newVisited, boardSize)) {
-          alert("Game Over! No more valid moves.");
-        }
-
-        return newVisited;
-      });
-
+      setVisited(newVisited);
       setKnightPosition(to);
+
+      if (isGameOver(to, newVisited, boardSize)) {
+        alert("Game Over! No more valid moves.");
+      }
     }
   };
 
