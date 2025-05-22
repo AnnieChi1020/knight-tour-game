@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Board from "./components/Board";
 
 export default function GamePage() {
@@ -9,6 +9,11 @@ export default function GamePage() {
   const [visited, setVisited] = useState<Record<string, number>>(() => ({
     "0-0": 1,
   }));
+
+  useEffect(() => {
+    setKnightPosition({ row: 0, col: 0 });
+    setVisited({ "0-0": 1 });
+  }, [boardSize]);
 
   const isValidKnightMove = (
     from: { row: number; col: number },
@@ -71,6 +76,19 @@ export default function GamePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-gray-100">
       <h1 className="text-3xl font-bold">Knight&apos;s Tour Game</h1>
+      <label htmlFor="board-size" className="mb-2 font-semibold">
+        Select Board Size:
+      </label>
+      <select
+        id="board-size"
+        value={boardSize}
+        onChange={(e) => setBoardSize(Number(e.target.value))}
+        className="mb-4 rounded border border-gray-300 px-3 py-1"
+      >
+        <option value={6}>6 x 6</option>
+        <option value={7}>7 x 7</option>
+        <option value={8}>8 x 8</option>
+      </select>
       <Board
         size={boardSize}
         knightPosition={knightPosition}
