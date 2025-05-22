@@ -63,6 +63,11 @@ export default function GamePage() {
     });
   };
 
+  const resetGame = () => {
+    setKnightPosition({ row: 0, col: 0 });
+    setVisited({ "0-0": 1 });
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-gray-100">
       <h1 className="text-3xl font-bold">Knight&apos;s Tour Game</h1>
@@ -72,6 +77,12 @@ export default function GamePage() {
         onCellClick={handleCellClick}
         visited={visited}
       />
+      <button
+        onClick={resetGame}
+        className="mt-4 rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+      >
+        Reset Game
+      </button>
     </main>
   );
 }
