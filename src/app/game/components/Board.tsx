@@ -3,9 +3,14 @@
 type Props = {
   size?: number;
   knightPosition: { row: number; col: number };
+  onCellClick: (row: number, col: number) => void;
 };
 
-export default function Board({ size = 6, knightPosition }: Props) {
+export default function Board({
+  size = 6,
+  knightPosition,
+  onCellClick,
+}: Props) {
   const cells = Array.from({ length: size * size }, (_, i) => i);
 
   return (
@@ -29,6 +34,7 @@ export default function Board({ size = 6, knightPosition }: Props) {
             className={`w-16 h-16 border flex items-center justify-center text-4xl ${
               isDark ? "bg-gray-700" : "bg-white"
             }`}
+            onClick={() => onCellClick?.(row, col)}
           >
             {isKnight ? "♞" : ""}
           </div>
