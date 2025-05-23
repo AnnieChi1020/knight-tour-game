@@ -73,6 +73,18 @@ export default function GamePage() {
     setVisited({ "0-0": 1 });
   };
 
+  const validMoves = Array.from({ length: boardSize * boardSize }, (_, i) => {
+    const row = Math.floor(i / boardSize);
+    const col = i % boardSize;
+    const key = `${row}-${col}`;
+
+    return (
+      isValidKnightMove(knightPosition, { row, col }) &&
+      !(key in visited) &&
+      key
+    );
+  }).filter(Boolean) as string[];
+
   return (
     <main
       className="flex min-h-screen flex-col items-center justify-center gap-6 "
@@ -104,10 +116,11 @@ export default function GamePage() {
         knightPosition={knightPosition}
         onCellClick={handleCellClick}
         visited={visited}
+        validMoves={validMoves}
       />
       <button
         onClick={resetGame}
-        className="mt-4 rounded px-4 py-2 text-white font-semibold"
+        className="mt-4 rounded px-4 py-2 text-white font-semibold cursor-pointer"
         style={{ background: "#176087" }}
       >
         Reset Game
