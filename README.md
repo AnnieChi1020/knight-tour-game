@@ -19,21 +19,24 @@ A web-based implementation of the Knight's Tour puzzle game built with Next.js a
 ### Installation
 
 1. Clone the repository:
-```bash
-git clone https://github.com/AnnieChi1020/knight-tour-game.git
-cd knight-tour-game
-```
+
+  ```bash
+  git clone https://github.com/AnnieChi1020/knight-tour-game.git
+  cd knight-tour-game
+  ```
 
 2. Install dependencies:
-```bash
-npm install
-```
+
+  ```bash
+  npm install
+  ```
 
 3. Run the development server:
-```bash
-npm run dev
 
-```
+  ```bash
+  npm run dev
+
+  ```
 
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to start playing!
 
