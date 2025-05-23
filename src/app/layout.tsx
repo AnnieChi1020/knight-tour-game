@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     "A web-based implementation of the Knight's Tour puzzle game. Challenge yourself to move a knight across a chessboard, visiting each square exactly once.",
   keywords: ["knight's tour", "chess", "puzzle", "game", "next.js"],
   viewport: "width=device-width, initial-scale=1",
+  icons: {
+    icon: [{ url: "/favicon.svg" }],
+  },
 };
 
 export default function RootLayout({
