@@ -46,7 +46,7 @@ export default function Board({
             `}
             style={{
               background: isHint ? "#9c8f41" : isDark ? "#0A2239" : "#fff",
-              color: isHint && isDark ? "#fff" : "#0A2239",
+              color: isDark ? "#fff" : "#0A2239",
             }}
             onClick={() => onCellClick?.(row, col)}
           >
