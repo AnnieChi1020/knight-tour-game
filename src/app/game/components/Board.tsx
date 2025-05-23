@@ -19,7 +19,7 @@ export default function Board({
 
   return (
     <div
-      className="grid p-2"
+      className="grid p-2 mb-4"
       style={{
         gridTemplateColumns: `repeat(${size}, 64px)`,
         gridTemplateRows: `repeat(${size}, 64px)`,

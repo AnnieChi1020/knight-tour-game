@@ -17,10 +17,12 @@ export default function GamePage() {
   const [visited, setVisited] = useState<Record<string, number>>(() => ({
     "0-0": 1,
   }));
+  const [gameOverMessage, setGameOverMessage] = useState<string>("");
 
   useEffect(() => {
     setKnightPosition({ row: 0, col: 0 });
     setVisited({ "0-0": 1 });
+    setGameOverMessage("");
   }, [boardSize]);
 
   const handleCellClick = (row: number, col: number) => {
@@ -37,7 +39,7 @@ export default function GamePage() {
       setKnightPosition(to);
 
       if (isGameOver(to, newVisited, boardSize)) {
-        alert("Game Over! No more valid moves.");
+        setGameOverMessage("Game Over! No more valid moves.");
       }
     }
   };
@@ -45,6 +47,7 @@ export default function GamePage() {
   const resetGame = () => {
     setKnightPosition({ row: 0, col: 0 });
     setVisited({ "0-0": 1 });
+    setGameOverMessage("");
   };
 
   const validMoves = getValidMoves(knightPosition, visited, boardSize);
@@ -80,6 +83,11 @@ export default function GamePage() {
         visited={visited}
         validMoves={validMoves}
       />
+      {gameOverMessage && (
+        <div className="mt-2 text-white text-lg font-semibold">
+          {gameOverMessage}
+        </div>
+      )}
       <button
         onClick={resetGame}
         className="mt-4 rounded px-4 py-2 text-white font-semibold cursor-pointer"
