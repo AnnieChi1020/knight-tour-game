@@ -2,10 +2,18 @@
 
 import { useEffect, useState } from "react";
 import Board from "./components/Board";
+import type { Position } from "./types";
+import { BOARD_SIZES } from "./constants";
+import { isValidKnightMove, isGameOver, getValidMoves } from "./utils";
 
 export default function GamePage() {
-  const [boardSize, setBoardSize] = useState(6);
-  const [knightPosition, setKnightPosition] = useState({ row: 0, col: 0 });
+  const [boardSize, setBoardSize] = useState<(typeof BOARD_SIZES)[number]>(
+    BOARD_SIZES[0]
+  );
+  const [knightPosition, setKnightPosition] = useState<Position>({
+    row: 0,
+    col: 0,
+  });
   const [visited, setVisited] = useState<Record<string, number>>(() => ({
     "0-0": 1,
   }));
@@ -15,17 +23,8 @@ export default function GamePage() {
     setVisited({ "0-0": 1 });
   }, [boardSize]);
 
-  const isValidKnightMove = (
-    from: { row: number; col: number },
-    to: { row: number; col: number }
-  ) => {
-    const dr = Math.abs(to.row - from.row);
-    const dc = Math.abs(to.col - from.col);
-    return (dr === 2 && dc === 1) || (dr === 1 && dc === 2);
-  };
-
   const handleCellClick = (row: number, col: number) => {
-    const to = { row, col };
+    const to: Position = { row, col };
     const key = `${row}-${col}`;
 
     if (isValidKnightMove(knightPosition, to) && !(key in visited)) {
@@ -43,58 +42,23 @@ export default function GamePage() {
     }
   };
 
-  const isGameOver = (
-    position: { row: number; col: number },
-    visited: Record<string, number>,
-    boardSize: number
-  ) => {
-    const moves = [
-      [2, 1],
-      [2, -1],
-      [-2, 1],
-      [-2, -1],
-      [1, 2],
-      [1, -2],
-      [-1, 2],
-      [-1, -2],
-    ];
-
-    return moves.every(([dr, dc]) => {
-      const r = position.row + dr;
-      const c = position.col + dc;
-      const key = `${r}-${c}`;
-      const isInBounds = r >= 0 && r < boardSize && c >= 0 && c < boardSize;
-      return !isInBounds || key in visited;
-    });
-  };
-
   const resetGame = () => {
     setKnightPosition({ row: 0, col: 0 });
     setVisited({ "0-0": 1 });
   };
 
-  const validMoves = Array.from({ length: boardSize * boardSize }, (_, i) => {
-    const row = Math.floor(i / boardSize);
-    const col = i % boardSize;
-    const key = `${row}-${col}`;
-
-    return (
-      isValidKnightMove(knightPosition, { row, col }) &&
-      !(key in visited) &&
-      key
-    );
-  }).filter(Boolean) as string[];
+  const validMoves = getValidMoves(knightPosition, visited, boardSize);
 
   return (
     <main
-      className="flex min-h-screen flex-col items-center justify-center gap-6 "
+      className="flex min-h-screen flex-col items-center justify-center gap-6"
       style={{ background: "#0A2239" }}
     >
       <h1 className="text-3xl font-bold text-white">Knight&apos;s Tour Game</h1>
       <div className="flex items-center gap-4">
         <label className="font-semibold text-white">Select Board Size:</label>
         <div className="flex gap-4">
-          {[6, 7, 8].map((size) => (
+          {BOARD_SIZES.map((size) => (
             <button
               key={size}
               onClick={() => setBoardSize(size)}
