@@ -38,7 +38,9 @@ export default function GamePage() {
       setVisited(newVisited);
       setKnightPosition(to);
 
-      if (isGameOver(to, newVisited, boardSize)) {
+      if (Object.keys(newVisited).length === boardSize * boardSize) {
+        setGameOverMessage("Congratulations! You completed the Knight's Tour!");
+      } else if (isGameOver(to, newVisited, boardSize)) {
         setGameOverMessage("Game Over! No more valid moves.");
       }
     }
