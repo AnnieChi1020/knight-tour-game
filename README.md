@@ -1,5 +1,7 @@
 # Knight's Tour Game
 
+![Knight's Tour Game Demo](./assets/knight-tour-demo.gif)
+
 A web-based implementation of the Knight's Tour puzzle game built with Next.js and TypeScript. The game challenges players to move a knight across a chessboard, visiting each square exactly once.
 
 ## Features
